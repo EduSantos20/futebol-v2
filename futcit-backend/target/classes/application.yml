@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: futebol_cidade
+
+  mail:
+    host: ${SMTP_HOST:localhost}
+    port: ${SMTP_PORT:1025}
+    username: ${SMTP_USER:}
+    password: ${SMTP_PASS:}
+    properties:
+      mail:
+        smtp:
+          auth: ${SMTP_AUTH:false}
+          starttls.enable: ${SMTP_STARTTLS:false}
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/futebol_cidade
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:0131}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update        # Flyway cuida do schema; JPA só valida
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: false  # Desabilitado para evitar migrações automáticas; rodar manualmente
+    locations: classpath:db/migration
+    baseline-on-migrate: true   # seguro para banco que já existe
+    baseline-version: 0
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:DPU=dwd9B7$fV1SWeK=1=qBuc1C3rq6KBTV5yF7g8LdZ2wCVFmEu1roV!-ZH13u4KdqQBp0o5_InnU5OOTyjt3u_mOlhK65KuGfnZ#Gj&VPpg1lfCK0R$!P0pnfiX7kZ_Mljm6pJLnnnKppRymkPBNUX1Z-wEbxwMEyQ4a&5nYFDnpDLVIgNnhZtZRIxwdnmmWQE_eaLGjp2B1KBAB0MI_-4voGyBJ0wjReFLJlmBdYP3ZhoY9Jwp4_094Z0EPIxarP_um_ryRYtyi2OwY=1ekZON64CgP#qYt0JA=N7n0Oayhk7JI9pNFxe9&iYAYX0M7lxOwFqPV6Q9zqDJ$I&lgfB}
+    expiration-ms: 86400000
+  upload:
+    path: ${UPLOAD_PATH:./uploads}
+  frontend:
+    url: ${FRONTEND_URL:http://localhost:5173}
+  mail:
+    from: no-reply@futebol.app
+  reset-password:
+    token-expiration-ms: 3600000  # 1 hora
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.futebol: DEBUG
+    org.springframework.security: WARN
+    org.flywaydb: INFO
+
+

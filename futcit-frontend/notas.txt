@@ -1,0 +1,5 @@
+Em meu time foi adicionado uma lista de jogadores onde o dono do time
+pode remover. A parte de remover ainda não está funcionando.
+
+
+Reset de senha precisa verificar
