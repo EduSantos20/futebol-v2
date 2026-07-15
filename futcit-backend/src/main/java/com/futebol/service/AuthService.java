@@ -43,7 +43,7 @@ public class AuthService {
                 && (req.getPosicao() == null || req.getPosicao().isBlank()))
             throw new RuntimeException("Jogadores devem informar a posição.");
 
-        Usuario u = Usuario.builder()
+        Usuario usuario = Usuario.builder()
                 .nome(req.getNome()).email(req.getEmail())
                 .senha(encoder.encode(req.getSenha()))
                 .tipoUsuario(req.getTipoUsuario())
@@ -51,8 +51,8 @@ public class AuthService {
                 .telefone(req.getTelefone()).cidade(req.getCidade())
                 .fotoPerfil(req.getFotoPerfil())
                 .build();
-        repo.save(u);
-        return new AuthResponseDTO(jwt.gerar(u.getId()), toDTO(u));
+        repo.save(usuario);
+        return new AuthResponseDTO(jwt.gerar(usuario.getId()), toDTO(usuario));
     }
 
     public AuthResponseDTO login(AuthDTO.Login req) {

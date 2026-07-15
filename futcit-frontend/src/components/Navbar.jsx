@@ -142,7 +142,9 @@ export default function Navbar() {
           {usuario ? (
             <>
               {usuario.fotoPerfil && (
-                <img src={usuario.fotoPerfil} alt={usuario.nome} />
+                <NavLink to="/perfil" onClick={fecharMenu}>
+                  <img src={usuario.fotoPerfil} alt={usuario.nome} />
+                </NavLink>
               )}
               <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
                 <span>{usuario.nome.split(" ")[0]}</span>

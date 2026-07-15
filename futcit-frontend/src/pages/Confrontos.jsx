@@ -11,13 +11,56 @@ import {
   FaChevronUp,
 } from "react-icons/fa";
 
+function parseDataJogo(valor) {
+  if (!valor) return null;
+
+  if (valor instanceof Date) {
+    return Number.isNaN(valor.getTime()) ? null : valor;
+  }
+
+  if (typeof valor === "string") {
+    const texto = valor.trim();
+    if (!texto) return null;
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(texto)) {
+      return new Date(`${texto}T00:00:00`);
+    }
+
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) {
+      const [dia, mes, ano] = texto.split("/");
+      return new Date(`${ano}-${mes}-${dia}T00:00:00`);
+    }
+
+    if (/^\d{4}-\d{2}-\d{2}T/.test(texto)) {
+      return new Date(texto);
+    }
+
+    const data = Date.parse(texto);
+    return Number.isNaN(data) ? null : new Date(data);
+  }
+
+  return null;
+}
+
 function ConfrotoCard({ jogo, usuarioId, onRegistrarPlacar }) {
   const [expandido, setExpandido] = useState(false);
   const temPlacar = jogo.golsTimeDesafiante !== null && jogo.golsTimeDesafiado !== null;
-  const podeRegistrar = usuarioId && (
-    jogo.timeDesafiante.usuarioId === usuarioId ||
-    jogo.timeDesafiado.usuarioId === usuarioId
-  );
+  const dataJogo = parseDataJogo(jogo.dataJogo);
+  const hojeSemHorario = new Date();
+  hojeSemHorario.setHours(0, 0, 0, 0);
+  const jogoJaOcorrido = dataJogo ? dataJogo.getTime() < hojeSemHorario.getTime() : false;
+  const eDonoDoTime = Boolean(usuarioId) && [
+    jogo.timeDesafiante?.usuarioId,
+    jogo.timeDesafiado?.usuarioId,
+    jogo.timeDesafiante?.donoId,
+    jogo.timeDesafiado?.donoId,
+    jogo.timeDesafiante?.dono?.id,
+    jogo.timeDesafiado?.dono?.id,
+    jogo.timeDesafiante?.ownerId,
+    jogo.timeDesafiado?.ownerId,
+  ].some((id) => String(id) === String(usuarioId));
+  const podeRegistrar = eDonoDoTime && (jogoJaOcorrido || jogo.status === "FINALIZADO" || jogo.status === "REALIZADO") && !temPlacar;
+  const mostrarAviso = eDonoDoTime && !podeRegistrar && !temPlacar;
 
   const temCampo = jogo.temCampo && jogo.nomeCampo;
 
@@ -171,6 +214,19 @@ function ConfrotoCard({ jogo, usuarioId, onRegistrarPlacar }) {
         </div>
       </div>
 
+      {podeRegistrar && (
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRegistrarPlacar(jogo);
+          }}
+          style={{ width: "100%" }}
+        >
+          <FaFutbol /> Informar resultado
+        </button>
+      )}
+
       {expandido && (
         <>
           {temCampo && (
@@ -223,18 +279,27 @@ function ConfrotoCard({ jogo, usuarioId, onRegistrarPlacar }) {
             </div>
           )}
 
-          {podeRegistrar && !temPlacar && (
-            <button
-              className="btn btn-primary btn-sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                onRegistrarPlacar(jogo);
+          {mostrarAviso && (
+            <div
+              style={{
+                background: "rgba(255, 193, 7, 0.1)",
+                border: "1px solid rgba(255, 193, 7, 0.3)",
+                borderRadius: 8,
+                padding: ".65rem .9rem",
+                fontSize: ".84rem",
+                color: "var(--muted)",
               }}
-              style={{ width: "100%" }}
             >
-              <FaFutbol /> Registrar Placar
-            </button>
+              <FaCalendarAlt
+                style={{
+                  color: "#ffc107",
+                  marginRight: ".5rem",
+                }}
+              />
+              <strong style={{ color: "#ffc107" }}>Resultado disponível</strong> após a partida acontecer.
+            </div>
           )}
+
         </>
       )}
     </div>
