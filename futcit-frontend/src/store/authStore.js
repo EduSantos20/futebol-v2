@@ -16,6 +16,7 @@ const useAuth = create((set) => ({
     }
   },
   login: (token, usuario) => { localStorage.setItem('token', token); set({ usuario }) },
+  atualizarUsuario: (usuarioAtualizado) => set((state) => ({ usuario: { ...state.usuario, ...usuarioAtualizado } })),
   logout: () => { localStorage.removeItem('token'); set({ usuario: null }) },
 }))
 

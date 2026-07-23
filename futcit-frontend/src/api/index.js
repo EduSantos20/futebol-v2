@@ -21,10 +21,33 @@ api.interceptors.response.use(
   }
 )
 
+const atualizarPerfilRequest = async (dados) => {
+  const rotas = [
+    { method: 'put', url: '/auth/perfil' },
+    { method: 'patch', url: '/auth/perfil' },
+    { method: 'put', url: '/auth/atualizar-perfil' },
+    { method: 'patch', url: '/auth/atualizar-perfil' },
+    { method: 'put', url: '/auth/update-profile' },
+    { method: 'patch', url: '/auth/update-profile' },
+  ]
+
+  let ultimoErro
+  for (const rota of rotas) {
+    try {
+      return await api.request({ method: rota.method, url: rota.url, data: dados })
+    } catch (erro) {
+      ultimoErro = erro
+    }
+  }
+
+  throw ultimoErro
+}
+
 export const authApi = {
   registrar:      d => api.post('/auth/registrar', d),
   login:          d => api.post('/auth/login', d),
   me:             () => api.get('/auth/me'),
+  atualizarPerfil: d => atualizarPerfilRequest(d),
   forgotPassword: d => api.post('/auth/forgot-password', d),
   resetPassword:  d => api.post('/auth/reset-password', d),
 }

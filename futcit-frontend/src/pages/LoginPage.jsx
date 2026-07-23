@@ -4,6 +4,7 @@ import { authApi } from "../api";
 import useAuth from "../store/authStore";
 import toast from "react-hot-toast";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage() {
   const { usuario, login } = useAuth();
@@ -16,6 +17,10 @@ export default function LoginPage() {
   useEffect(() => {
     if (usuario) navigate("/");
   }, [usuario]);
+
+  const handleGoogleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL || ""}/api/auth/google`;
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -168,6 +173,30 @@ export default function LoginPage() {
             {loading ? "Entrando..." : "ENTRAR"}
           </button>
         </form>
+
+        <div style={{ marginTop: "1rem" }}>
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: ".6rem",
+              border: "1px solid var(--borda)",
+              background: "rgba(255,255,255,.03)",
+              color: "#fff",
+              padding: ".8rem",
+              borderRadius: "var(--radius)",
+              cursor: "pointer",
+              fontWeight: 600,
+            }}
+          >
+            <FcGoogle size={18} />
+            Entrar com Google
+          </button>
+        </div>
         <p
           style={{
             textAlign: "center",
