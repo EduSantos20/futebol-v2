@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9850ed99-f518-4362-bfa4-fdf8e6e88643" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../futcit-frontend/node_modules/.vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/node_modules/.vite/deps/_metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../futcit-frontend/node_modules/.vite/deps/react-icons_fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/node_modules/.vite/deps/react-icons_fa.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../futcit-frontend/node_modules/.vite/deps/react-icons_fa.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/node_modules/.vite/deps/react-icons_fa.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../futcit-frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../futcit-frontend/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/src/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../futcit-frontend/src/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/src/pages/LoginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../futcit-frontend/src/pages/RegisterPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/src/pages/RegisterPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../futcit-frontend/src/store/authStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/src/store/authStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/futebol/service/JogoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/futebol/service/JogoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/futebol/service/JogoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/futebol/service/JogoService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../futcit-frontend/src/pages/MeusJogos.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../futcit-frontend/src/pages/MeusJogos.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,10 +73,11 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/config/SecurityConfig.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/controller/JogoController.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/controller/TimeController.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/dto/GoogleOAuthDTO.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/dto/JogoDTO.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/dto/TimeDTO.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/entity/Jogo.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/entity/SolicitacaoTime.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/entity/Time.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/entity/Usuario.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/enums/StatusDesafio.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/futebol/repository/JogoRepository.java" root0="SKIP_INSPECTION" />
@@ -105,61 +99,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.2993696761547322" />
-      <entry key="MS500" value="1.7856725166675802" />
-      <entry key="S2" value="1.9414784645473597" />
-      <entry key="S5" value="1.97623472492737" />
-      <entry key="S10" value="2.0064153760519914" />
-      <entry key="S30" value="2.914043632186213" />
-      <entry key="S60" value="4.515245224661376" />
-      <entry key="M2" value="6.189204360469486" />
-      <entry key="M5" value="7.698163154872431" />
-      <entry key="M10" value="8.315192836364261" />
-      <entry key="M15" value="8.535574441222195" />
-      <entry key="M30" value="8.763750316731052" />
-      <entry key="H1" value="8.880848068881452" />
-      <entry key="H2" value="8.940164994105212" />
-      <entry key="H4" value="8.970017451254328" />
-      <entry key="D1" value="8.994993850049426" />
-      <entry key="W1" value="8.999284613562422" />
+      <entry key="MS100" value="1.5350745966954564" />
+      <entry key="MS500" value="2.4953337500229305" />
+      <entry key="S2" value="2.85723413794569" />
+      <entry key="S5" value="2.94147658987922" />
+      <entry key="S10" value="2.9886926260839077" />
+      <entry key="S30" value="3.905438289154672" />
+      <entry key="S60" value="5.508573402475188" />
+      <entry key="M2" value="7.184630020190576" />
+      <entry key="M5" value="8.69588681519107" />
+      <entry key="M10" value="9.313963348075905" />
+      <entry key="M15" value="9.534733037809517" />
+      <entry key="M30" value="9.763318358038324" />
+      <entry key="H1" value="9.880629201007823" />
+      <entry key="H2" value="9.940054828558921" />
+      <entry key="H4" value="9.969962184381867" />
+      <entry key="D1" value="9.9949846132325" />
+      <entry key="W1" value="9.999283293387121" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="5.941591906415896E-16" />
-      <entry key="MS500" value="9.011157154822243E-4" />
-      <entry key="S2" value="0.17325873570984127" />
-      <entry key="S5" value="0.49602812802299934" />
-      <entry key="S10" value="0.7118732098811223" />
-      <entry key="S30" value="1.1976389520558681" />
-      <entry key="S60" value="1.7266475156944163" />
-      <entry key="M2" value="2.2223828341745335" />
-      <entry key="M5" value="2.646058223605296" />
-      <entry key="M10" value="2.8149531249463022" />
-      <entry key="M15" value="2.874764862446304" />
-      <entry key="M30" value="2.936427422498085" />
-      <entry key="H1" value="2.967971185715704" />
-      <entry key="H2" value="2.9839244832459917" />
-      <entry key="H4" value="2.991946904026593" />
-      <entry key="D1" value="2.998655681987629" />
-      <entry key="W1" value="2.9998079022083672" />
+      <entry key="MS100" value="2.446720861196923E-16" />
+      <entry key="MS500" value="7.546001461406121E-4" />
+      <entry key="S2" value="0.1657407200407181" />
+      <entry key="S5" value="0.4873039555125005" />
+      <entry key="S10" value="0.7055852043872025" />
+      <entry key="S30" value="1.1941022534640753" />
+      <entry key="S60" value="1.7240961846747813" />
+      <entry key="M2" value="2.2207403071675964" />
+      <entry key="M5" value="2.6452757866508687" />
+      <entry key="M10" value="2.8145369046652458" />
+      <entry key="M15" value="2.874481479414199" />
+      <entry key="M30" value="2.9362826881885864" />
+      <entry key="H1" value="2.9678980402753847" />
+      <entry key="H2" value="2.9838877137153395" />
+      <entry key="H4" value="2.9919284697761745" />
+      <entry key="D1" value="2.998652602715534" />
+      <entry key="W1" value="2.999807462143132" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.3155456905897536" />
-      <entry key="MS500" value="1.2241798222688371" />
-      <entry key="S2" value="1.8747156270454381" />
-      <entry key="S5" value="2.324700406301457" />
-      <entry key="S10" value="2.62572052543368" />
-      <entry key="S30" value="4.042897908292978" />
-      <entry key="S60" value="6.176607011579889" />
-      <entry key="M2" value="8.362763768697409" />
-      <entry key="M5" value="10.31883771438992" />
-      <entry key="M10" value="11.116254750576356" />
-      <entry key="M15" value="11.400792703301011" />
-      <entry key="M30" value="11.695256432968526" />
-      <entry key="H1" value="11.846320613035338" />
-      <entry key="H2" value="11.922830533507518" />
-      <entry key="H4" value="11.961332461684343" />
-      <entry key="D1" value="11.993543878735883" />
-      <entry key="W1" value="11.999077414154039" />
+      <entry key="MS100" value="0.5417358067873935" />
+      <entry key="MS500" value="1.8625426125532634" />
+      <entry key="S2" value="2.7499764210258637" />
+      <entry key="S5" value="3.2662253758512594" />
+      <entry key="S10" value="3.593694386134026" />
+      <entry key="S30" value="5.028005932793851" />
+      <entry key="S60" value="7.166002704726321" />
+      <entry key="M2" value="9.355843902276028" />
+      <entry key="M5" value="11.315490744610534" />
+      <entry key="M10" value="12.114463235501756" />
+      <entry key="M15" value="12.399570281849199" />
+      <entry key="M30" value="12.694630693282383" />
+      <entry key="H1" value="12.84600401637084" />
+      <entry key="H2" value="12.922671291403342" />
+      <entry key="H4" value="12.961252603165452" />
+      <entry key="D1" value="12.993530535871171" />
+      <entry key="W1" value="12.999075507217912" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{

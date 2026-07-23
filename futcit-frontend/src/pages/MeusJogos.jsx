@@ -28,14 +28,29 @@ const STATUS = {
   },
   RECUSADO: { label: "Recusado", cls: "badge-red", icon: <FaTimesCircle /> },
   CANCELADO: { label: "Cancelado", cls: "badge-red", icon: <FaTimesCircle /> },
+  FINALIZADO: { label: "Finalizado", cls: "badge-green", icon: <FaCheckCircle /> },
+  REALIZADO: { label: "Finalizado", cls: "badge-green", icon: <FaCheckCircle /> },
+};
+
+const STATUS_DESCONHECIDO = {
+  label: "Finalizado",
+  cls: "badge-yellow",
+  icon: <FaHourglassHalf />,
 };
 
 function JogoCard({ jogo, usuarioId, onAceitar, onRecusar, onCancelar, onRegistrarPlacar }) {
   const ehDesafiante = jogo.timeDesafiante.usuarioId === usuarioId;
   const meu = ehDesafiante ? jogo.timeDesafiante : jogo.timeDesafiado;
   const adv = ehDesafiante ? jogo.timeDesafiado : jogo.timeDesafiante;
-  const st = STATUS[jogo.status];
-  const temPlacar = jogo.golsTimeDesafiante !== null && jogo.golsTimeDesafiado !== null;
+
+  // Mantém o card renderizável caso a API envie um status novo, nulo ou inválido.
+
+  const st = STATUS[jogo.status] ?? STATUS_DESCONHECIDO;
+  // A API pode omitir os campos antes do placar ser informado (undefined).
+  // Só considera o placar preenchido quando os dois valores existem.
+  const golsDesafiante = jogo.golsTimeDesafiante ?? jogo.golsDesafiante;
+  const golsDesafiado = jogo.golsTimeDesafiado ?? jogo.golsDesafiado;
+  const temPlacar = golsDesafiante != null && golsDesafiado != null;
 
   return (
     <div
@@ -56,7 +71,9 @@ function JogoCard({ jogo, usuarioId, onAceitar, onRecusar, onCancelar, onRegistr
           right: 0,
           height: 3,
           background:
-            jogo.status === "CONFIRMADO"
+            temPlacar
+              ? "var(--verde-grad)"
+              : jogo.status === "CONFIRMADO"
               ? "var(--verde-grad)"
               : jogo.status === "PENDENTE"
                 ? "linear-gradient(90deg,#FFD700,#FFA500)"
@@ -113,12 +130,13 @@ function JogoCard({ jogo, usuarioId, onAceitar, onRecusar, onCancelar, onRegistr
         <div
           style={{
             fontFamily: "'Bebas Neue',sans-serif",
-            fontSize: "1.6rem",
-            color: "var(--muted2)",
+            fontSize: temPlacar ? "2rem" : "1.6rem",
+            color: temPlacar ? "var(--verde-neon)" : "var(--muted2)",
             letterSpacing: 2,
+            whiteSpace: "nowrap",
           }}
         >
-          VS
+          {temPlacar ? `${golsDesafiante} X ${golsDesafiado}` : "VS"}
         </div>
         <div style={{ textAlign: "center", flex: 1 }}>
           <div
@@ -407,8 +425,8 @@ export default function MeusJogos() {
     setSalvando(true);
     try {
       const { data } = await jogosApi.registrarPlacar(modalPlacar.id, {
-        golsTimeDesafiante: parseInt(golsDesafiante),
-        golsTimeDesafiado: parseInt(golsDesafiado),
+        golsDesafiante: parseInt(golsDesafiante),
+        golsDesafiado: parseInt(golsDesafiado),
       });
       setJogos((p) => p.map((j) => (j.id === data.id ? data : j)));
       toast.success("Placar registrado!");
@@ -429,6 +447,7 @@ export default function MeusJogos() {
       l: pendentesParaMim > 0 ? `Pendentes (${pendentesParaMim})` : "Pendentes",
     },
     { k: "CONFIRMADO", l: "Confirmados" },
+    { k: "FINALIZADO", l: "Finalizados" },
     { k: "RECUSADO", l: "Recusados" },
     { k: "CANCELADO", l: "Cancelados" },
   ];
@@ -451,6 +470,7 @@ export default function MeusJogos() {
         {[
           { l: "Pendentes", s: "PENDENTE", c: "var(--amarelo)" },
           { l: "Confirmados", s: "CONFIRMADO", c: "var(--verde)" },
+          { l: "Finalizados", s: "FINALIZADO", c: "var(--verde-neon)" },
           { l: "Cancelados", s: "CANCELADO", c: "var(--vermelho)" },
         ].map((x) => (
           <div

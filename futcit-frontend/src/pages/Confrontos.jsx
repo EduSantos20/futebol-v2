@@ -42,13 +42,20 @@ function parseDataJogo(valor) {
   return null;
 }
 
+function dataHoraDoJogo(jogo) {
+  const data = parseDataJogo(jogo.dataJogo);
+  if (!data) return null;
+
+  const [hora = 0, minuto = 0] = (jogo.horarioJogo || "00:00").split(":");
+  data.setHours(Number(hora), Number(minuto), 0, 0);
+  return data;
+}
+
 function ConfrotoCard({ jogo, usuarioId, onRegistrarPlacar }) {
   const [expandido, setExpandido] = useState(false);
-  const temPlacar = jogo.golsTimeDesafiante !== null && jogo.golsTimeDesafiado !== null;
-  const dataJogo = parseDataJogo(jogo.dataJogo);
-  const hojeSemHorario = new Date();
-  hojeSemHorario.setHours(0, 0, 0, 0);
-  const jogoJaOcorrido = dataJogo ? dataJogo.getTime() < hojeSemHorario.getTime() : false;
+  const temPlacar = jogo.golsDesafiante != null && jogo.golsDesafiado != null;
+  const dataHoraJogo = dataHoraDoJogo(jogo);
+  const jogoJaOcorrido = dataHoraJogo ? dataHoraJogo.getTime() <= Date.now() : false;
   const eDonoDoTime = Boolean(usuarioId) && [
     jogo.timeDesafiante?.usuarioId,
     jogo.timeDesafiado?.usuarioId,
@@ -168,12 +175,12 @@ function ConfrotoCard({ jogo, usuarioId, onRegistrarPlacar }) {
                 lineHeight: 1,
               }}
             >
-              {jogo.golsTimeDesafiante}
-              <span style={{ fontSize: "2.25rem", color: "var(--verde-neon)" }}>
+              {jogo.golsDesafiante}
+              <span style={{ fontSize: "2rem", color: "var(--verde-neon)" }}>
                 {" "}
                 X{" "}
               </span>
-              {jogo.golsTimeDesafiado}
+              {jogo.golsDesafiado}
             </div>
           ) : (
             <div
@@ -345,8 +352,8 @@ export default function Confrontos() {
     setSalvando(true);
     try {
       await jogosApi.registrarPlacar(modalPlacar.id, {
-        golsTimeDesafiante: parseInt(golsDesafiante),
-        golsTimeDesafiado: parseInt(golsDesafiado),
+        golsDesafiante: parseInt(golsDesafiante),
+        golsDesafiado: parseInt(golsDesafiado),
       });
       toast.success("Placar registrado!");
       carregarConfrontos(dataSelecionada);
@@ -371,6 +378,11 @@ export default function Confrontos() {
     { label: "Hoje", data: hoje },
     { label: "Amanhã", data: amanha },
   ];
+  const confrontosOrdenados = [...confrontos].sort((a, b) => {
+    const dataA = dataHoraDoJogo(a)?.getTime() ?? Number.MAX_SAFE_INTEGER;
+    const dataB = dataHoraDoJogo(b)?.getTime() ?? Number.MAX_SAFE_INTEGER;
+    return dataA - dataB;
+  });
 
   return (
     <div className="container">
@@ -441,7 +453,7 @@ export default function Confrontos() {
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {confrontos.map((jogo) => (
+            {confrontosOrdenados.map((jogo) => (
               <ConfrotoCard
                 key={jogo.id}
                 jogo={jogo}

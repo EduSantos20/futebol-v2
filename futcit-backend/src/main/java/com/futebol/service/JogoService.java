@@ -164,6 +164,10 @@ public class JogoService {
         if (!ehDesafiante && !ehDesafiado)
             throw new BusinessException("Apenas os times envolvidos podem registrar o placar");
 
+        LocalDate hoje = LocalDate.now();
+        if (j.getDataJogo().isAfter(hoje))
+            throw new BusinessException("O placar só pode ser registrado no dia do jogo ou após o término dele");
+
         j.setGolsDesafiante(req.getGolsDesafiante());
         j.setGolsDesafiado(req.getGolsDesafiado());
         j.setStatus(StatusJogo.FINALIZADO);
@@ -206,9 +210,13 @@ public class JogoService {
         );
         r.setCriadoEm(j.getCriadoEm());
         r.setCanceladoEm(j.getCanceladoEm());
-        r.setGolsDesafiante(j.getGolsDesafiante());
-        r.setGolsDesafiado(j.getGolsDesafiado());
-        r.setFinalizadoEm(j.getFinalizadoEm());
+        
+        LocalDate hoje = LocalDate.now();
+        if (j.getDataJogo().isBefore(hoje) || j.getDataJogo().isEqual(hoje)) {
+            r.setGolsDesafiante(j.getGolsDesafiante());
+            r.setGolsDesafiado(j.getGolsDesafiado());
+            r.setFinalizadoEm(j.getFinalizadoEm());
+        }
 
         return r;
     }
